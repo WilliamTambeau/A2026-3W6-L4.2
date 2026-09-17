@@ -20,6 +20,8 @@
                     <h3 class="card-title"> @item.Name </h3>
                     <h4 class="card-title text-success"> @item.ZombieType.TypeName </h4>
                     <h5> @item.Point + @item.ZombieType.Point = @(item.ZombieType.Point + item.Point) </h5>
+                    
+                    <a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-info">Edit</a>
                 </div>
             </div>
         }
