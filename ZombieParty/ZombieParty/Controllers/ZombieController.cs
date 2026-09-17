@@ -65,6 +65,31 @@ namespace ZombieParty.Controllers
 
             return View(zombieVM);
         }
+        public IActionResult Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            Zombie zombie = _baseDonnees.Zombies.Find(id);
+
+            return View(zombie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Zombie/Delete/{id}")]
+        public IActionResult DeletePost(int? id)
+        {
+            Zombie? zombie = _baseDonnees.Zombies.Find(id);
+            if (zombie == null)
+            {
+                return NotFound();
+            }
+
+            _baseDonnees.Zombies.Remove(zombie);
+            _baseDonnees.SaveChanges();
+            TempData["Success"] = $"Zombie {zombie.Name} terminated";
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         public IActionResult Create(ZombieVM zombieVM)
